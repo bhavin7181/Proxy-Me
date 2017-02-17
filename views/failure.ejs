@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Proxy Me!!</title>
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular.min.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/indexangular.js"></script>
+    
+<link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body ng-app="index" ng-controller = "index">
+  <div class = "container-fluid" style="background: #3A4045">
+  <div class="row">
+  <div class="col-md-3"><br/><img src = "/images/proxyme.png" height ="40px" width = "50px"></div>
+  <div class="col-md-6">
+   <center><div class="h3-white">
+    <h2>Proxy Me.</h2>      
+  </div></center>
+  </div>
+  <div class="col-md-3">
+   <ul class="pull-right">
+   <form action ="/getSignUpAsCustomer" method="GET">
+	<button type="submit" class="link">Sign up as customer<small>>></small></button>
+	</form>
+	<form action ="/getSignUpAsSP" class="link" method="GET">
+	<button class="link">Signup as service provider <small>>></small></button>
+	</form>
+	<form action ="/getAdminLogin" method="GET">
+	<button class="link">Login as admin<small>>></small></button>
+	</form>
+	</ul>
+  </div>
+  </div>	
+  
+  </div>
+  <div style = "background:#F5F8FA;">
+  <br/>
+   
+    </div>
+   <div class = "container-fluid" style="background:#F5F8FA;height:500px;">
+<center><h1><%= statusMessage %></h1></center>
+  </body>
+</html>

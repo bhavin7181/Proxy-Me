@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Proxy Me!!</title>
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular.min.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/admin.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body ng-app="admin" ng-controller="admin">
+  <div class = "container-fluid" style="background: #3A4045">
+  <div class="row">
+  <div class="col-md-3"><br/><img src = "/images/proxyme.png" height ="40px" width = "50px"></div>
+  <div class="col-md-6" >
+   <center><div class="h3-white">
+    <h2>Admin Home</h2>      
+  </div></center>
+  </div>
+ <div class="col-md-3">
+ <form method="GET" action="/logout">
+ <button type="submit" class="btn btn-success pull-right">Logout</button>
+</form>
+ </div>
+  </div>	
+  
+  </div>
+  <div style = "background:#F5F8FA;">
+  <br/>
+   
+    </div>
+   <div class = "container-fluid" style="background:#F5F8FA;height:500px;">
+<div class="row">
+<div class=" panel panel-info col-md-2">
+</div>
+<div class=" panel panel-info col-md-8">
+<div class="panel panel-default">
+     
+    <div class="panel-body" ng-init="initApprovals()">
+    <h3>Pending Service Provider Approvals</h3>
+	<ul class="list-group">
+<li class="list-group-item list-group-item-info"  ng-repeat="x in listSPApprovals"><a class="normallink" >{{x.name}}</a><br/><center>
+<button type="button" class="btn btn-success btn-sm" ng-click="approveSP(x._id);"><span class="glyphicon glyphicon-ok"></span>Approve</button>
+	 <button type="button" class="btn btn-danger btn-sm" ng-click="rejectSP(x._id);"><span class="glyphicon glyphicon-remove"></span>Reject</button></center></li>
+	
+	 </ul>
+    <div class="panel-footer">
+    
+    </div>
+</div>
+
+<div class="col-md-2">
+
+
+  </div>
+    </div>
+</div>
+   </div>
+  
+  
+  </body>
+  
+   
+  </body>
+</html>

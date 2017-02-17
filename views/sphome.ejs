@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular.min.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/sp.js"></script>
+    
+    
+    <script type="text/javascript" src="/js/fusioncharts.js"></script>
+<script type="text/javascript" src="/js/themes/fusioncharts.theme.fint.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular-fusioncharts.min.js"></script>
+    <script  type='text/javascript' class='jsbin' src="/Javascripts/previewprofilepic.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>
+    
+   <script type = "text/javascript">
+   
+   </script>
+  </head>
+  <body ng-app = "sp"  ng-controller="sp">
+  <nav class="navbar navbar-default mynav">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav ">
+ 
+    </ul>
+    <div style = "margin-left:600px;">
+    <ul class="nav navbar-nav navbar-center" style="margin-top:10px;">
+    <li><img src = "/images/proxyme.png" height = "20px" width = "20px"></li>
+    
+    </ul>
+     <form method="GET" action="/logout">
+ <button type="submit" class="btn btn-success pull-right">Logout</button>
+</form>
+    </div>
+   
+  </div>
+</nav>
+  
+ <div class="container-fluid" style="margin-top:-20px">
+ <div style="height:170px;background:#3A4045">
+ <button class="btn btn-success pull-right" style="margin-top:135px;" ng-click="showAddService();">Add Service</button> 
+ </div>
+
+ <div class="row" style="background:#ffffff"  >
+ <div class="col-md-3">
+ <img style="margin-left:25px;margin-top:-90px;border:solid 5px;border-color:#ffffff;border-radius:10px;" data-ng-src = "<%= results.image %>" id = "profilepic" height = "200px" width = "200px"/ >
+
+ 
+ </div>
+ <input type="hidden" id="hiddenspid" value="<%= results._id %>">
+ <div class="col-md-3" >
+ <div class = "col-md-6">
+    <h5><small class="mycountheading">Experience</small></h5>
+    <h4 class="mycount" ><%= results.experience  %></h4>     
+    </div>
+    <div class = "col-md-6 ">
+    <h5><small  class="mycountheading">Available At</small></h5>
+      <h4 class="mycount" ><%= results.city  %> </h4>
+    </div>
+ </div>
+ <div class="col-md-6" >
+ </div>
+ 
+ </div>
+ </div>
+
+  <div class="container-fluid" style="margin-top:-30px;background:#F5F8FA;>
+  <div class="row" >
+  <div class="col-md-3" style="margin-left:-270px;margin-top:30px" >
+
+    <h4 class="text-success"><span class="glyphicon glyphicon-user"> <%= results.name %></span> </h4> 
+  
+   
+    <h5 class="text-success"><span class="glyphicon glyphicon-envelope"> <%= results.email %></span></h5> 
+    <h5 class="text-success"><span class="glyphicon glyphicon-phone"> <%= results.contactNo %></span> </h5>
+    <h5 class="text-success"><span class="glyphicon glyphicon-map-marker"> <%= results.street %>,<br/> &nbsp;&nbsp;<%= results.city %>,<br/> 
+    &nbsp;&nbsp;<%= results.state %>,<br/>&nbsp;&nbsp;<%= results.zipcode %>,<br/>&nbsp;&nbsp;<%= results.country %></span></h5> 
+<h5 class="text-success"><span class="glyphicon glyphicon-education normallink"> Services</span> </h5>
+<ol>
+<% for(var i=0;i<results.services.length;i++){ %>
+<li ng-click="showService(<%= JSON.stringify(results) %>,<%= JSON.stringify(i) %>)"><a class="normallink">Service Type : <%= results.services[i].servicetype  %></a></li>
+Skills : <%= results.services[i].skills %>
+<% } %>
+</ol>
+
+<div ng-hide="hidedesc" style="border:solid 5px;border-color:#ffffff;border-radius:10px;background:#3A4045;color:white">
+<br/>
+<p style="margin-left:20px;margin-right:10px;">
+Description : {{desc.services[index].description}}</p>
+
+<strong style="margin-left:20px;">Upload Mou:</strong>
+<input type="file"  accept="PDF/pdf" value = "Upload MOU" class="btn" name = "filepdf" onchange="readURLPDF(this)"><br/>
+
+<input type = "hidden" name = "image" id ="hiddenpdf"/>
+
+<br/>
+</div>
+
+<h5 class="text-success"><span class="glyphicon glyphicon-dashboard">Reviews	</span></h5>
+<ol>
+<% for(var i=0;i<results.reviews.length;i++){ %>
+<li class="text-success">Name : <%= results.reviews[i].customername  %><br/>
+Service Name : <%= results.reviews[i].servicetype %><br/>
+Rating : <%= results.reviews[i].rating %><br/>
+Comments : <%= results.reviews[i].comment %></li>
+<% } %>
+
+</ol>
+
+  </div>
+  <br/>
+  
+  
+  
+  
+  
+  
+<div class="col-md-8" ng-init="initrequests();">
+
+<div class = "panel panel-success" ng-hide="hideaddservice">
+<div class = "panel-heading">
+Add Service
+</div>
+<div class = "panel-body">
+<input class="form-control  input-sm" type ="text" ng-model="servicetype" placeholder="enter service category" style="width:200px"><br/>
+    
+<input class="form-control  input-sm" type ="text" ng-model="skills" placeholder="enter service type"  style="width:200px"><small>service types must be in comma separated values</small><br/>
+
+<input class="form-control  input-sm" type ="text" ng-model="description" placeholder="enter description"  style="width:400px"><br/>
+
+<button class="btn btn-success" ng-click="addservice();">Add</button>
+</div>
+</div>
+
+<div class = "panel panel-success">
+<div class = "panel-heading">
+Pending Requests
+</div>
+<div class = "panel-body">
+<ul class="list-group" ng-repeat="x in requests">
+<a class="normallink"  ng-click="showRequest(x);">Customer Name:{{x.name}}</a>
+<li class="list-group-item list-group-item-success">
+Requested {{x.servicetype}}
+</li>
+ </ul>
+
+
+</div>
+
+</div>
+
+<div class = "panel panel-success" ng-hide="hiderequest">
+<div class = "panel-heading">
+Request Description
+</div>
+<br/>
+Customer Name : <strong>{{req.name}} </strong><br/>
+Requested Service Type : <strong> {{req.servicetype}} </strong><br/>
+Customer MOU : <a href="{{req.moucustomer}}" download="customermou.pdf">Mou</a><br/>
+<strong>Upload Service Provider's Mou:</strong>
+<input type="file"  accept="PDF/pdf" value = "Upload MOU" class="btn" name = "filepdf" onchange="readURLPDF(this)"><br/>
+
+<input type = "hidden" name = "image" id ="hiddenpdf"/>
+<button class="btn btn-success" ng-click="accept(req)"> Accept </button>
+<button class="btn btn-danger" ng-click="reject(req)"> Reject </button>
+<br/>
+</div>
+
+</div>
+  
+    </div>
+  </div>
+  </div>
+  </body>
+</html>

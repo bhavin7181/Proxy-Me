@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular.min.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/customer.js"></script>
+    
+    
+    <script type="text/javascript" src="/js/fusioncharts.js"></script>
+<script type="text/javascript" src="/js/themes/fusioncharts.theme.fint.js"></script>
+    <script type = "text/javascript" src = "/Angularjs/angular-fusioncharts.min.js"></script>
+    <script  type='text/javascript' class='jsbin' src="/Javascripts/previewprofilepic.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>
+    
+   <script type = "text/javascript">
+   
+   </script>
+  </head>
+  <body ng-app = "customer" ng-controller="customer" >
+  <nav class="navbar navbar-default mynav">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav ">
+ 
+    </ul>
+    <div style = "margin-left:600px;">
+    <ul class="nav navbar-nav navbar-center" style="margin-top:10px;">
+    <li><img src = "/images/proxyme.png" height = "20px" width = "20px"></li>
+
+
+
+    </ul>
+     <form method="GET" action="/logout">
+ <button type="submit" class="btn btn-success pull-right">Logout</button>
+</form>
+    </div>
+   
+  </div>
+</nav>
+  
+ <div class="container-fluid" style="margin-top:-20px">
+ <div style="height:170px;background:#3A4045">
+
+ </div>
+
+
+
+ <div class="row" style="background:#ffffff"  >
+ <div class="col-md-3">
+ <img style="margin-left:25px;margin-top:-90px;border:solid 5px;border-color:#ffffff;border-radius:10px;" data-ng-src = "<%= results.image %>" id = "profilepic" height = "200px" width = "200px"/ >
+
+ 
+ </div>
+ <input type="hidden" id="hiddenspid" value="<%= results._id %>">
+ <div class="col-md-3" >
+ <div class = "col-md-6">
+   
+    </div>
+    <div class = "col-md-6 ">
+    <h5><small  class="mycountheading">Field Of Interest</small></h5>
+      <h4 class="mycount" ><%= results.fieldOfInterest  %> </h4>
+    </div>
+ </div>
+ <div class="col-md-6" >
+ </div>
+ 
+ </div>
+ </div>
+
+  <div class="container-fluid" style="margin-top:-30px;background:#F5F8FA;>
+  <div class="row" >
+  <div class="col-md-3" style="margin-left:-270px;margin-top:30px" >
+
+    <h4 class="text-success"><span class="glyphicon glyphicon-user"> <%= results.name %></span> </h4> 
+  
+   
+    <h5 class="text-success"><span class="glyphicon glyphicon-envelope"> <%= results.email %></span></h5> 
+    <h5 class="text-success"><span class="glyphicon glyphicon-phone"> <%= results.contactNo %></span> </h5>
+    <h5 class="text-success"><span class="glyphicon glyphicon-map-marker"> <%= results.street %>,<br/> &nbsp;&nbsp;<%= results.city %>,<br/> 
+    &nbsp;&nbsp;<%= results.state %>,<br/>&nbsp;&nbsp;<%= results.zipcode %>,<br/>&nbsp;&nbsp;<%= results.country %></span></h5> 
+	
+
+<br/>
+<br/>
+ <button class="btn btn-success" ng-click="showRequestHistory();">Request History</button>
+
+  </div>
+  
+  <!-- change col -->
+  
+  
+  <br/>
+<div class=" panel panel-success col-md-8">
+<div class="panel-header" ng-init="showsearch();">
+<br/>
+  <div class="input-group" ng-hide="hidenormalsearch">
+            <input type="text" class="form-control" placeholder="Search Service Provider By Services" ng-model  = "searchbyloc">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" ng-click="searchByServices();"><i class="glyphicon glyphicon-search"></i></button>
+                 <button class="btn btn-default" type="submit" ng-click="advanceSearch();"><i class="glyphicon glyphicon-tag"></i></button>
+            </div>
+        </div>	
+        
+   <div class="input-group" ng-hide="hideadvancesearch">
+   <div class = "row">
+   <div class = "col-md-5">
+            <input type="text" class="form-control" placeholder="Enter Location" ng-model  = "advanceloc">
+            </div>
+            <div class = "col-md-5">
+            <input type="text" class="form-control" placeholder="Enter Service" ng-model  = "advanceservice">
+            </div>
+             <div class = "col-md-2">
+            <div class="input-group-btn">
+                <button class="btn btn-default pull-right" type="submit" ng-click="searchBack();"><i class="glyphicon glyphicon-backward"></i></button>
+                <button class="btn btn-default pull-right" type="submit" ng-click="searchByLocationAndService();"><i class="glyphicon glyphicon-search"></i></button>
+                
+            </div>
+            </div>
+            </div>
+        </div>	     
+</div>
+<div class="panel-body"  ng-init="fetchDefaultSP();">
+<div class="row">
+ 
+  <!-- Rpeate -->
+  <div ng-hide="none">No details Found </div>
+  <div class="col-md-3" style= "overflow: hidden;height:200px;margin-left:10px;margin-bottom:10px;border-radius: 5px;border:" ng-repeat="x in spDetails">
+  <div style="height:50%;width:350px;background:#3A4045;" >
+  <div style="margin-left:100px;" >
+  <strong style="color:white">Services</strong>
+
+  <li style="color:white" ng-repeat="y in x.services|  limitTo:2">{{y.servicetype}}</li>
+ 
+  <a style="color:white;"> more >></a>
+  </div>
+  </div>
+  <div style="height:20%;width:300px;background:#ffffff">
+  <div class=row>
+  <div class="col-md-5">
+ 
+ <img data-ng-src="{{x.image}}" style="height:60px;width:60px;margin-top:-25px;margin-left:10px;border:solid 3px;border-color:#ffffff;border-radius:10px;"/>
+  </div>
+  <div class="col-md-6" style="margin-top:5px;margin-left:-40px;">
+  
+  <form method="POST" action = "showSPDetails"><button type="submit" class ="btn btn-default myfollowbtn"><input type="hidden" name="spId" value={{x._id}}><span class="glyphicon glyphicon-user blue"></span>Profile</button></form>
+  </div>
+  </div>
+  </div>
+  <div style="margin-top:-20px;height:30%;width:300px;background:#ffffff">
+  <form method="POST" action = "showSPDetails"><h3 style="margin-left:10px;" ><input type="hidden" name="spId" value={{x._id}}><button type="submit" class="link1"><strong class="mystrong">{{x.name}}</strong></button></h3></form>
+  </div>
+  </div>
+  
+  <!-- Rpeate -->
+  
+  
+  
+</div>	
+</div>
+</div>
+
+
+ 
+  
+    </div>
+  </div>
+  </div>
+  <div ng-hide="hideloadrequest" class="panel panel-success" ng-init="loadRequestHistory()" style="border:2px solid darkgreen">
+      <div class="panel-heading" style ="border-radius:10px"> 
+      <h5><strong>Request History</strong></h5>
+
+      </div>
+      <div class="panel-body" style ="border-radius:10px"> 
+      
+      <table id="table" class="table">
+    <thead>
+      <tr>
+        <th>Service Provider Name</th>
+        <th>Service Type</th>
+        <th>Customer Mou</th>
+        <th>Service Provider Mou </th>
+        <th>Status</th>
+        <th>Rating</th>
+        <th>Comments</th>
+        <th>Done</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <tr class="info" ng-repeat = "x in requesthistory">
+     
+        <td >{{x.name}}</td>
+        <td>{{x.servicetype}}</td>
+        <td><a style="color:darkgreen;" href="{{x.moucustomer}}" download="MOUCustomer.pdf" target="_blank">MOU Customer</a></td>
+         <td><a style="color:darkgreen;" href="{{x.mousp}}" download="MOUServiceProvider.pdf" target="_blank">MOU Service Provider</a></td>
+         <td>{{x.status}}</td>
+         <td><input id="rating_{{x._id}}" type= "text"/></td>
+         <td><input id="comment_{{x._id}}" type= "text"/></td>
+        <td ng-if="x.status === 'accepted'"><button class="btn btn-default" ng-click="done(x,$index);">Done</button></td>
+        <td ng-if="x.status === 'done'"></td>
+        <td ng-if="x.status === 'rejected'"></td>
+        <td ng-if="x.status === 'pending'"></td>
+        
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  </body>
+</html>
